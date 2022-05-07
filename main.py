@@ -1,16 +1,44 @@
-# This is a sample Python script.
+import tweepy
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Fill the X's with the credentials obtained by
+# following the above mentioned procedure.
+consumer_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+consumer_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+access_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+access_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Function to extract tweets
+def get_tweets(username):
+    # Authorization to consumer key and consumer secret
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+
+    # Access to user's access key and access secret
+    auth.set_access_token(access_key, access_secret)
+
+    # Calling api
+    api = tweepy.API(auth)
+
+    # 200 tweets to be extracted
+    number_of_tweets = 200
+    tweets = api.user_timeline(screen_name=username)
+
+    # Empty Array
+    tmp = []
+
+    # create array of tweet information: username,
+    # tweet id, date/time, text
+    tweets_for_csv = [tweet.text for tweet in tweets]  # CSV file created
+    for j in tweets_for_csv:
+        # Appending tweets to the empty array tmp
+        tmp.append(j)
+
+    # Printing the tweets
+    print(tmp)
 
 
-# Press the green button in the gutter to run the script.
+# Driver code
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # Here goes the twitter handle for the user
+    # whose tweets are to be extracted.
+    get_tweets("twitter-handle")
