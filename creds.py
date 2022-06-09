@@ -1,0 +1,9 @@
+
+CREDS = dict(
+Access_token= "2479789014-7rp897xNB2Wa0IIcVzj9InKU6VGnBkSH9NqSZZv",
+Access_token_secret= "hyNQsAAgwYe8fg1xocD2bMKTTF0D9P5Ihpi8OM1DZclDy",
+API_Key = "rjC6RtfKq64MnNDUBAQtAAXXb",
+API_Key_Secret = "SgYxdZDwrHDjYMc34LHARYJeua906xqHSTQeGvLFzoyvmxez3m",
+Bearer_Token = "AAAAAAAAAAAAAAAAAAAAAKGadQEAAAAA7Zmz6BmapwohvMglFAFLp4xOZos%3DeURmMmG86xaqwgp8Pzc9rT6XTAYZCnF0URKdhK0jaQq7kbwFAy",
+NAME= "UK MP Mapping",
+APP_ID=  24484513)
