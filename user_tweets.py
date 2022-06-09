@@ -22,15 +22,20 @@ tweets = api.user_timeline(screen_name=userID,
                            # otherwise only the first 140 words are extracted
                            tweet_mode='extended'
                            )
-print(tweets)
+# print(tweets)
 data=[]
 for info in tweets[:3]:
      print("ID: {}".format(info.id))
-     print(info.created_at)
-     print(info.full_text)
-     print("\n")
-     data.append(["ID: {}".format(info.id) ,info.created_at ,info.full_text])
 
+     retweets_list = api.get_retweets(info.id)
+     # folowers = api.get_followers(userID)
+     # for folowe in folowers:
+     #     print(folowe.screen_name)
+     users_retweeted = ''
+     # printing the screen names of the retweeters
+     for retweet in retweets_list:
+         users_retweeted += retweet.user.screen_name+' , '
+     data.append(["ID: {}".format(info.id), info.created_at, info.full_text,users_retweeted])
 with open(userID+'scrap.csv', 'w') as f:
     write = csv.writer(f)
     for info in data:
