@@ -22,6 +22,7 @@ def scrap_mp():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
+    print(auth.access_token)
 
     tweets = api.user_timeline(screen_name=userID,
                                # 200 is the maximum allowed count
@@ -56,6 +57,8 @@ def scrap_mp():
              #         if str(retweet.user.screen_name ) in mp_name:
              #             other_mps_favourits += retweet.user.screen_name + ' , '
              created_time= info.created_at
+             favorited = info.favorited
+             print(favorited ,'=-=-=--=-=-=-=-')
              print(str(created_time))
              # folowers = api.get_followers(userID)
              # for folowe in folowers:
