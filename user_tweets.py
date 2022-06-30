@@ -22,6 +22,11 @@ def scrap_mp():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
+    likes = api.get_favorites(count=199)
+    user_liked=''
+    for like in likes:
+        print(like.id)
+        user_liked +=str(like.id)+','
     print(auth.access_token)
 
     tweets = api.user_timeline(screen_name=userID,
@@ -34,7 +39,7 @@ def scrap_mp():
                                )
     # print(tweets)
 
-    user = api.get_user(screen_name=userID)
+
     mentions = api.mentions_timeline()
     print('mentions total - ' ,len(mentions))
     followers = api.get_followers(screen_name=userID,)
@@ -72,7 +77,7 @@ def scrap_mp():
                          other_mps_retweeted += retweet.user.screen_name + ' , '
                  users_retweeted += retweet.user.screen_name+' , '
              data.append(["ID: {}".format(info.id), info.created_at, 'info.full_text',users_retweeted,info.retweet_count,
-                          info.favorite_count,info.retweet_count,other_mps_retweeted,other_mps_favourits],)
+                          info.favorite_count,info.retweet_count,other_mps_retweeted,other_mps_favourits,user_liked],)
         except Exception as e:
             print(e)
 
@@ -80,7 +85,7 @@ def scrap_mp():
         write = csv.writer(f)
         write.writerow(['USERNAME - '+str(userID),'Mentions - '+str(len(mentions)) ,'Followers - '+str(len(followers))])
         write.writerow(['ID','Created time','Full tweet text','User retweeted' , 'Retweet count',
-                        'Liked count','Retweet count','List Mps Retweeted','List Mps Liked'])
+                        'Liked count','Retweet count','List Mps Retweeted','List Mps Liked','this user liked'])
         for info in data:
             write.writerow(info)
 scrap_mp()
