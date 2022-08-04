@@ -1,7 +1,7 @@
 import time
 
 import tweepy
-from mycreds import CREDS as credentials
+from creds import CREDS as credentials
 from date_producer import get_total_weeks
 import pandas as pd
 mps_csv = pd.read_csv('MPsonTwitter_list_name.csv')
@@ -45,8 +45,8 @@ def get_twets(search_words):
                 print("ID: {}".format(i.id) , ' --- ','CREATED: ',i.created_at)
                 USER_TWEETS_IDS.append(str(i.id))
                 tweet_user_file = open('id_folder/' + str(search_words) + '.txt', 'a')
-                if str(i.id) not in existing_ids:
-                    tweet_user_file.write(str(i.id) + '\n')
+                if str(i.id)+'---'+str(i.created_at) not in existing_ids:
+                    tweet_user_file.write(str(i.id)+'---'+str(i.created_at) + '\n')
                     tweet_user_file.close()
                     print(str(i.id),'ADDED TO ---->',search_words ,' TXT FILE')
         except Exception as e:
