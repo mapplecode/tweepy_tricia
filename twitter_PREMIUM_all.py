@@ -1,3 +1,4 @@
+import os.path
 import time
 
 import tweepy
@@ -28,11 +29,13 @@ client = tweepy.Client( consumer_key=consumer_key,
 
 USER_TWEETS_IDS = list()
 
-def get_twets(search_words):
+def get_twets(search_words,st_date=''):
     existing_ids = list()
     all_dates = get_total_weeks()
     for key,val in all_dates.items():
         date_start= str(val).split(',')[0][:-2]
+        if st_date != '':
+            date_start = st_date
         date_stop= str(val).split(',')[1][:-2]
         tweets=api.search_full_archive( query=search_words,label=label,fromDate=date_start,toDate=date_stop)
         try:
@@ -54,6 +57,23 @@ def get_twets(search_words):
         time.sleep(120)
 
 for i in mps_csv['Screen name']:
-    print(i)
-    get_twets(search_words=i)
-    time.sleep(600)
+    # print(i)
+    if os.path.exists( 'id_folder/' + str(i) + '.txt'):
+        # try:
+        #     existing_date_list = list()
+        #     old_file = 'id_folder/' + str(i) + '.txt'
+        #     old_file = open(old_file,'r').read().split('\n')
+        #     for text in old_file:
+        #         try:
+        #             date = text.split('---')[1]
+        #             existing_date_list.append(date)
+        #         except:
+        #             print(text)
+        #     max_date = str(max(existing_date_list))[:10].replace('-','')+'0000'
+        #     get_twets(search_words=i, st_date=str(max_date))
+        # except:
+        #     pass
+        continue
+    else:
+        get_twets(search_words=i)
+        time.sleep(600)
