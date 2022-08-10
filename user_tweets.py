@@ -89,3 +89,4 @@ def scrap_mp():
         for info in data:
             write.writerow(info)
 scrap_mp()
+
