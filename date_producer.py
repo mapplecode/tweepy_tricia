@@ -18,9 +18,9 @@ def get_total_weeks(st_date=''):
     count = 0
     new_start_date = 0
     date_dict = dict()
-    for i in range(0,len(all_dates)-7):
+    for i in range(0,len(all_dates)-120):
         start_date = str(all_dates[i]).replace('-','').replace(' ','').replace(':','')
-        end_date = str(all_dates[i+7]).replace('-','').replace(' ','').replace(':','')
+        end_date = str(all_dates[i+120]).replace('-','').replace(' ','').replace(':','')
         if new_start_date == 0 or new_start_date == start_date:
             new_start_date = end_date
             # print(start_date, '< --- >',end_date)
