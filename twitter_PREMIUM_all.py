@@ -5,7 +5,7 @@ import tweepy
 from creds import CREDS as credentials
 from date_producer import get_total_weeks
 import pandas as pd
-mps_csv = pd.read_csv('MPsonTwitter_list_name.csv')
+mps_csv = pd.read_csv('missing-MPs.csv')
 consumer_key = credentials['API_Key']
 consumer_secret = credentials['API_Key_Secret']
 access_token = credentials['Access_token']
@@ -41,12 +41,12 @@ def get_twets(search_words,st_date=''):
             print('DATES  --- >',date_start,date_stop)
             tweets=api.search_full_archive(query=query,label=label,fromDate=date_start,toDate=date_stop,maxResults=500)
             try:
-                read_file = open('id_folder/' + str(search_words) + '.txt', 'r').read()
+                read_file = open('id_folder2/' + str(search_words) + '.txt', 'r').read()
                 existing_ids = read_file.split('\n')
             except Exception as e:
                 print(e)
             try:
-                print('GOT TOTAL- ',len(tweets))
+                print('GOT TOTAL- ',len(tweets),' TO ',search_words)
                 for i in tweets:
                     # print("ID: {}".format(i.id) , ' --- ','CREATED: ',i.created_at)
                     USER_TWEETS_IDS.append(str(i.id))
@@ -54,7 +54,7 @@ def get_twets(search_words,st_date=''):
                     if str(i.id)+'---'+str(i.created_at) not in existing_ids:
                         tweet_user_file.write(str(i.id)+'---'+str(i.created_at) + '\n')
                         tweet_user_file.close()
-                        print(str(i.id),'ADDED TO ---->',search_words ,' TXT FILE')
+                        # print(str(i.id),'ADDED TO ---->',search_words ,' TXT FILE')
             except Exception as e:
                 print(e)
             time.sleep(5)
@@ -73,9 +73,9 @@ for i in mps_csv['Screen name']:
                     existing_date_list.append(date)
                 except:
                     print(text)
-            # max_date = str(max(existing_date_list))[:10].split('-')
-            # print('DATE CHANGE')
-            # get_twets(search_words=i,st_date=max_date)
+            max_date = str(max(existing_date_list))[:10].split('-')
+            print('DATE CHANGE')
+            get_twets(search_words=i)
         except Exception as e:
             print(e)
             pass

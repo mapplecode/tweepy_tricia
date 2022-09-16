@@ -4,7 +4,7 @@ from creds import CREDS as credentials
 # function to display data of each tweet
 import csv
 import  time
-mps_csv = pd.read_csv('MPsonTwitter_list_name.csv')
+mps_csv = pd.read_csv('MPsonTwitter_list_name_main.csv.csv')
 mpskeys = mps_csv.keys()
 print(mps_csv['Screen name'])
 mp_name=list()

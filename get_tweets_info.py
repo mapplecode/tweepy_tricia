@@ -33,6 +33,8 @@ def send_data(data,id,user_name,mydb=mydb):
     mycursor.execute(sql, val)
     mydb.commit()
 
+
+
 def check_data(id,mydb=mydb):
     try:
         mycursor = mydb.cursor()
@@ -71,8 +73,8 @@ for i in all_files:
                 data = get_status(tweet_id)
                 data_dict = {}
                 for k in data.keys():
-
-                    print(k,' - ',data[k])
+                    if k == 'retweeted_status':
+                        print(data[k].__dict__['_json']['user'])
                     if k == 'user':
                         data_dict['owner'] = data[k].__dict__['_json']['screen_name']
                         if data[k].__dict__['_json']['screen_name'] in user_name:
@@ -95,6 +97,7 @@ for i in all_files:
                     if k == 'text':
                         data_dict['text'] = data[k]
                 print(data_dict)
+                print('user - ',user_name)
                 try:
                     send_data(data=str(data_dict),id=tweet_id,user_name=user_name)
                 except Exception as e:
